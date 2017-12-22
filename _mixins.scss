@@ -1,0 +1,48 @@
+// _mixins.scss
+
+// -- Equal Spaced Columns -- //
+@mixin equalSpaced($num_of_cols, $gutter, $width:100%){
+  width: ($width - ($gutter * ($num_of_cols - 1))) / $num_of_cols;
+  margin-left: $gutter;
+  float: left;
+  // Remove Spacing from First Child
+  &:first-child{
+    margin-left: 0;
+  }
+}
+
+// -- Set content color and background color -- //
+@mixin setColors($color, $backgroundColor:none){
+    color: $color;
+    background-color: $backgroundColor;
+}
+
+//-- Set line-height according to font-size -- //
+@mixin setLineHeight ($fontSize,$lines:1) {
+    line-height: (($fontSize * 1.6) * $lines);
+}
+
+//-- set section default values-- //
+@mixin setSectionValues($width) {
+    &.focal, 
+    &.content1,
+    &.content2{
+        width: $width; 
+        margin: 0 auto;    
+    }
+}
+
+//-- media queries-- //
+@mixin breakPoint($point) {
+    $bp-small  : "(min-width:701px) and (max-width:900px)";
+    $bp-medium : "(min-width:901px) and (max-width: 1400px)";
+    $bp-large  : "(min-width:1401px)";
+    
+    @if $point == small {
+        @media all and #{$bp-small} { @content; }
+    }@else if $point == medium {
+        @media all and #{$bp-medium} { @content; }
+    }@else if $point == large {
+        @media all and #{$bp-large} { @content; }
+    }
+}
